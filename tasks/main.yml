@@ -1,0 +1,30 @@
+---
+
+- name: Downloading dictionaries to be installed
+  local_action: get_url url={{ dict_archive[item].url }} dest={{ role_path }}/files/{{item}}.zip
+  with_items: dictionaries
+
+- name: Unarchiving dictionaries to be installed
+  local_action: unarchive src={{ role_path }}/files/{{item}}.zip dest={{ role_path }}/files/
+  with_items: dictionaries
+
+- name: Looking for target dictionaries locations on iOS
+  shell: find {{ target_dir }} -name {{ dict_archive[item].target_dict }}
+  register: target_dict_paths
+  with_items: dictionaries
+
+- fail: msg="The dictionary '{{ item.cmd | regex_replace("find .* -name ", "")}}' was not found on iOS. Perpaps you forgot to download it over iOS tooltip > Define > Manage."
+  when: item.stdout is undefined
+        or
+        item.stdout is none
+        or
+        item.stdout | trim == ''
+  with_items: target_dict_paths.results
+
+- name: Removing the content of target dictionaries on iOS
+  file: path="{{ item.stdout }}/Contents" state=absent
+  with_items: target_dict_paths.results
+
+- name: Coping the content of source dictionaries to target dictionaries on iOS
+  copy: src={{ role_path }}/files/{{ item.item }}.dictionary/Contents dest={{item.stdout}} directory_mode=0755 mode=0644 owner=mobile group=mobile
+  with_items: target_dict_paths.results

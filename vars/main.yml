@@ -1,0 +1,16 @@
+---
+
+dict_archive: # all available dictionaries
+  dictd_www.mova.org_slovnyk_en-uk:
+    # The folder name of the dictionary on iOS, which content will be replaced with the content of the source dictionary
+    target_dict: 'Italian.dictionary'
+    # The dictionary url
+    url: http://clasquin-johnson.co.za/michel/dictionaries/dictd_www.mova.org_slovnyk_en-uk.dictionary.zip
+    # The checksum of the dictionary archive
+    checksum: md5:18f90e77b97c250bd4c8f33dd0916128
+  dictd_www.mova.org_slovnyk_uk-en:
+    target_dict: 'Dutch.dictionary'
+    url: http://clasquin-johnson.co.za/michel/dictionaries/dictd_www.mova.org_slovnyk_uk-en.dictionary.zip
+    checksum: md5:f672bdfb5f18c4feab6023423df13da9
+# The FS path of the folder on iOS which contains system dictionaries
+target_dir: '/var/mobile/Library/Assets/com_apple_MobileAsset_DictionaryServices_dictionary2'

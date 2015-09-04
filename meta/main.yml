@@ -1,0 +1,13 @@
+dependencies: []
+
+galaxy_info:
+  author: speechkey
+  company: speechkey <speechkey@gmail.com>
+  description: Download and install dictionaries on iOS by replacing the content of existing system dictionaries with the content of the new one.
+  license: MIT
+  platforms:
+  - name: MacOSX
+    versions:
+    - all
+  categories:
+  - education
